@@ -5,6 +5,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Certificados - Sistema OTEC</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <script id="tailwind-config">
@@ -529,6 +530,29 @@
 
     <script src="../assets/js/components/sidebar.js"></script>
     <script>
+        // Función para generar y descargar PDF
+        function generarPDF(nombreArchivo = 'certificado.pdf') {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // PDF con contenido básico de certificado (para el prototipo)
+            doc.setFontSize(22);
+            doc.text('CERTIFICADO DE CAPACITACIÓN', 105, 40, { align: 'center' });
+
+            doc.setFontSize(12);
+            doc.text('Sistema OTEC', 105, 55, { align: 'center' });
+
+            doc.setFontSize(14);
+            doc.text('Este documento certifica que el participante', 105, 80, { align: 'center' });
+            doc.text('ha completado satisfactoriamente el curso.', 105, 90, { align: 'center' });
+
+            doc.setFontSize(10);
+            doc.text('Documento generado automáticamente - Prototipo', 105, 280, { align: 'center' });
+
+            // Descargar el PDF
+            doc.save(nombreArchivo);
+        }
+
         // Modal functionality
         const modal = document.getElementById('modalParticipantes');
         const btnCloseModal = document.getElementById('btnCloseModal');
@@ -626,6 +650,9 @@
                 return;
             }
 
+            // Generar y descargar el PDF
+            generarPDF('certificados_curso.pdf');
+
             // Cerrar modal
             closeModal();
 
@@ -639,6 +666,12 @@
                 : `Se generaron ${cantidad} certificados con éxito.`;
 
             showToast('Certificados Generados', mensaje);
+        });
+
+        // Botón principal "Generar Certificados" del header
+        document.getElementById('btnGenerarCertificados')?.addEventListener('click', function() {
+            generarPDF('certificados_generados.pdf');
+            showToast('Certificado Generado', 'El certificado se ha descargado correctamente.');
         });
     </script>
 </body>
