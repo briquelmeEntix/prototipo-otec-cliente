@@ -27,7 +27,12 @@ function getCurrentPage() {
         'relatores-detalle.html': 'relatores',
         'empresas-listado.html': 'empresas',
         'empresas-detalle.html': 'empresas',
-        'configuracion.html': 'ajustes'
+        'certificados.html': 'certificados',
+        'configuracion.html': 'ajustes',
+        'portal-relator.html': 'portal-relator',
+        'portal-otic.html': 'portal-otic',
+        'portal-cliente.html': 'portal-cliente',
+        'relator-participantes.html': 'portal-relator'
     };
 
     return pageMap[filename] || 'inicio';

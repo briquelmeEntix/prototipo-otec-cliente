@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html class="light" lang="es">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Gestión de Participantes - Sistema OTEC</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
     <link rel="stylesheet" href="../assets/css/global.css">
     <script id="tailwind-config">
         tailwind.config = {
@@ -45,15 +48,16 @@
         }
     </style>
     <script>
-        // Verificar sesión antes de cargar la página
-        (function() {
-            const sesion = localStorage.getItem('sesion');
-            if (!sesion) {
-                window.location.href = '../login.html';
-            }
-        })();
+            // Verificar sesión antes de cargar la página
+            (function () {
+                const sesion = localStorage.getItem('sesion');
+                if (!sesion) {
+                    window.location.href = '../login.html';
+                }
+            })();
     </script>
 </head>
+
 <body class="bg-background-light dark:bg-background-dark font-display text-[#111318] dark:text-white antialiased">
     <div class="flex h-screen overflow-hidden">
         <!--
@@ -73,7 +77,8 @@
             usando @User.IsInRole("NombreRol")
         -->
         <!-- Sidebar -->
-        <aside class="w-64 bg-white dark:bg-[#1a202c] border-r border-[#dbdee6] dark:border-gray-800 flex flex-col shrink-0">
+        <aside
+            class="w-64 bg-white dark:bg-[#1a202c] border-r border-[#dbdee6] dark:border-gray-800 flex flex-col shrink-0">
             <div class="p-6">
                 <div class="flex items-center gap-3">
                     <div class="bg-primary rounded-lg p-2 text-white">
@@ -86,27 +91,33 @@
                 </div>
             </div>
             <nav class="flex-1 px-3 space-y-1" id="sidebar-nav">
-                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="dashboard.html" data-page="inicio">
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    href="dashboard.html" data-page="inicio">
                     <span class="material-symbols-outlined text-[24px]">house</span>
                     <span class="text-sm font-medium">Inicio</span>
                 </a>
-                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="solicitudes-listado.html" data-page="solicitudes">
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    href="solicitudes-listado.html" data-page="solicitudes">
                     <span class="material-symbols-outlined text-[24px]">assignment</span>
                     <span class="text-sm font-medium">Solicitudes</span>
                 </a>
-                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="relatores-listado.html" data-page="relatores">
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    href="relatores-listado.html" data-page="relatores">
                     <span class="material-symbols-outlined text-[24px]">group</span>
                     <span class="text-sm font-medium">Relatores</span>
                 </a>
-                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="certificados.html" data-page="certificados">
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    href="certificados.html" data-page="certificados">
                     <span class="material-symbols-outlined text-[24px]">verified</span>
                     <span class="text-sm font-medium">Certificados</span>
                 </a>
-                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="reportes.html" data-page="reportes">
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    href="reportes.html" data-page="reportes">
                     <span class="material-symbols-outlined text-[24px]">bar_chart</span>
                     <span class="text-sm font-medium">Reportes</span>
                 </a>
-                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="empresas-listado.html" data-page="empresas">
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    href="empresas-listado.html" data-page="empresas">
                     <span class="material-symbols-outlined text-[24px]">business</span>
                     <span class="text-sm font-medium">Empresas</span>
                 </a>
@@ -117,31 +128,47 @@
                 </div>
 
                 <!-- Solo visible para rol: Relator -->
-                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="portal-relator.html" data-page="portal-relator">
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    href="portal-relator.html" data-page="portal-relator">
                     <span class="material-symbols-outlined text-[24px]">school</span>
                     <span class="text-sm font-medium">Portal Relator</span>
-                    <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-bold">Relator</span>
+                    <span
+                        class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-bold">Relator</span>
                 </a>
 
                 <!-- Solo visible para rol: OTIC -->
-                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="portal-otic.html" data-page="portal-otic">
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    href="portal-otic.html" data-page="portal-otic">
                     <span class="material-symbols-outlined text-[24px]">task_alt</span>
                     <span class="text-sm font-medium">Aprobación OTIC</span>
-                    <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 font-bold">OTIC</span>
+                    <span
+                        class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 font-bold">OTIC</span>
+                </a>
+
+                <!-- Solo visible para rol: Cliente -->
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    href="portal-cliente.html" data-page="portal-cliente">
+                    <span class="material-symbols-outlined text-[24px]">business</span>
+                    <span class="text-sm font-medium">Portal Cliente</span>
+                    <span
+                        class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-orange-100 text-orange-700 font-bold">Cliente</span>
                 </a>
 
                 <!-- Separador: Configuración -->
                 <div class="pt-4 pb-2 px-3">
                     <p class="text-[10px] uppercase tracking-wider text-[#616e89] font-bold">Configuración</p>
                 </div>
-                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="configuracion.html" data-page="ajustes">
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                    href="configuracion.html" data-page="ajustes">
                     <span class="material-symbols-outlined text-[24px]">settings</span>
                     <span class="text-sm font-medium">Ajustes</span>
                 </a>
             </nav>
             <div class="p-4 border-t border-[#dbdee6] dark:border-gray-800">
                 <div class="flex items-center gap-3">
-                    <div class="size-10 rounded-full bg-cover bg-center bg-[#f0f1f4]" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC-6tHnHvQxxeZTxX5s6Jd7E_e55EY5P3DsG4Jg_agoNay0YiYJi-JpBWPpJkuuIF_w6K8wNoXohF3bheUc9JW7zCIyTqf_20YZ9lRVXuoy3T4mtKPm-kGXFu2o1WzB7dgtm3UWw5Hjjfe9_RE4DZiaeLJWs5vL-lEJesEsPMwCO0XtwOBUq_2MJiRr2-Y5wVavMbuD6kBtITm13tHUaWUggxhNnISk9Z-0e615BLhVcObxT8UbKcX0lAoom-Jnw2rqGSvNHOFfIZQ')"></div>
+                    <div class="size-10 rounded-full bg-cover bg-center bg-[#f0f1f4]"
+                        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC-6tHnHvQxxeZTxX5s6Jd7E_e55EY5P3DsG4Jg_agoNay0YiYJi-JpBWPpJkuuIF_w6K8wNoXohF3bheUc9JW7zCIyTqf_20YZ9lRVXuoy3T4mtKPm-kGXFu2o1WzB7dgtm3UWw5Hjjfe9_RE4DZiaeLJWs5vL-lEJesEsPMwCO0XtwOBUq_2MJiRr2-Y5wVavMbuD6kBtITm13tHUaWUggxhNnISk9Z-0e615BLhVcObxT8UbKcX0lAoom-Jnw2rqGSvNHOFfIZQ')">
+                    </div>
                     <div class="flex flex-col">
                         <p class="text-xs font-bold dark:text-white">Paola García</p>
                         <p class="text-[10px] text-[#616e89]">Instructor / Relator</p>
@@ -153,7 +180,8 @@
         <!-- Main Content -->
         <main class="flex-1 flex flex-col overflow-y-auto pb-24">
             <!-- Header -->
-            <header class="bg-white dark:bg-[#111621] px-8 py-6 border-b border-[#dbdee6] dark:border-gray-800 sticky top-0 z-10">
+            <header
+                class="bg-white dark:bg-[#111621] px-8 py-6 border-b border-[#dbdee6] dark:border-gray-800 sticky top-0 z-10">
                 <!-- Breadcrumbs -->
                 <nav class="flex items-center gap-2 mb-4 text-sm text-gray-500 dark:text-gray-400">
                     <a class="hover:text-primary transition-colors" href="dashboard.html">Inicio</a>
@@ -165,10 +193,12 @@
 
                 <div class="flex flex-wrap justify-between items-start gap-4">
                     <div>
-                        <h2 class="text-[#111318] dark:text-white text-2xl font-black tracking-tight">Excel Avanzado para Finanzas Corporativas</h2>
+                        <h2 class="text-[#111318] dark:text-white text-2xl font-black tracking-tight">Excel Avanzado
+                            para Finanzas Corporativas</h2>
                         <p class="text-[#616e89] text-sm mt-1">Gestión de Aprobación Simplificada</p>
                     </div>
-                    <a href="portal-relator.html" class="flex items-center gap-2 text-primary hover:text-primary/80 text-sm font-medium transition-all">
+                    <a href="portal-relator.html"
+                        class="flex items-center gap-2 text-primary hover:text-primary/80 text-sm font-medium transition-all">
                         <span class="material-symbols-outlined text-sm">arrow_back</span>
                         Volver a Mis Cursos
                     </a>
@@ -179,19 +209,23 @@
             <div class="p-8">
                 <!-- Info Banner -->
                 <div class="mb-6">
-                    <div class="flex flex-1 flex-col items-start justify-between gap-4 rounded-xl border border-primary/20 bg-primary/5 p-5 md:flex-row md:items-center">
+                    <div
+                        class="flex flex-1 flex-col items-start justify-between gap-4 rounded-xl border border-primary/20 bg-primary/5 p-5 md:flex-row md:items-center">
                         <div class="flex gap-4">
                             <div class="text-primary mt-1">
                                 <span class="material-symbols-outlined">info</span>
                             </div>
                             <div class="flex flex-col gap-1">
-                                <p class="text-[#111318] dark:text-white text-base font-bold leading-tight">Estado de aprobación</p>
+                                <p class="text-[#111318] dark:text-white text-base font-bold leading-tight">Estado de
+                                    aprobación</p>
                                 <p class="text-[#616e89] dark:text-gray-400 text-base font-normal leading-normal">
-                                    Todos los participantes están marcados como APROBADOS por defecto. Desmarque a los alumnos reprobados y guarde los resultados.
+                                    Todos los participantes están marcados como APROBADOS por defecto. Desmarque a los
+                                    alumnos reprobados y guarde los resultados.
                                 </p>
                             </div>
                         </div>
-                        <a class="text-sm font-bold leading-normal tracking-[0.015em] flex items-center gap-2 text-primary hover:underline whitespace-nowrap" href="#">
+                        <a class="text-sm font-bold leading-normal tracking-[0.015em] flex items-center gap-2 text-primary hover:underline whitespace-nowrap"
+                            href="#">
                             Ver reglamento
                             <span class="material-symbols-outlined text-sm">arrow_forward</span>
                         </a>
@@ -201,19 +235,24 @@
                 <!-- Search -->
                 <div class="mb-6">
                     <label class="flex flex-col min-w-40 h-12 w-full max-w-lg">
-                        <div class="flex w-full flex-1 items-stretch rounded-lg h-full border border-[#dbdee6] dark:border-gray-700 overflow-hidden shadow-sm">
+                        <div
+                            class="flex w-full flex-1 items-stretch rounded-lg h-full border border-[#dbdee6] dark:border-gray-700 overflow-hidden shadow-sm">
                             <div class="text-[#616e89] flex bg-white dark:bg-gray-800 items-center justify-center pl-4">
                                 <span class="material-symbols-outlined">search</span>
                             </div>
-                            <input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#111318] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 border-none bg-white dark:bg-gray-800 h-full placeholder:text-[#616e89] px-4 text-base font-normal" placeholder="Buscar participante por nombre o RUT..." value=""/>
+                            <input
+                                class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden text-[#111318] dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/50 border-none bg-white dark:bg-gray-800 h-full placeholder:text-[#616e89] px-4 text-base font-normal"
+                                placeholder="Buscar participante por nombre o RUT..." value="" />
                         </div>
                     </label>
                 </div>
 
                 <!-- Table -->
-                <div class="overflow-hidden rounded-xl border border-[#dbdee6] dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm">
+                <div
+                    class="overflow-hidden rounded-xl border border-[#dbdee6] dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm">
                     <table class="w-full text-left border-collapse">
-                        <thead class="bg-[#f8fafc] dark:bg-gray-800/50 text-[#616e89] dark:text-gray-400 text-xs font-bold uppercase tracking-wider">
+                        <thead
+                            class="bg-[#f8fafc] dark:bg-gray-800/50 text-[#616e89] dark:text-gray-400 text-xs font-bold uppercase tracking-wider">
                             <tr>
                                 <th class="px-6 py-4 w-16">#</th>
                                 <th class="px-6 py-4">RUT</th>
@@ -227,7 +266,9 @@
                                 <td class="px-6 py-4 text-sm font-mono">15.432.981-0</td>
                                 <td class="px-6 py-4 text-sm font-semibold">Alvarez Retamal, Claudia</td>
                                 <td class="px-6 py-4 text-right">
-                                    <input checked class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer" type="checkbox"/>
+                                    <input checked
+                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                        type="checkbox" />
                                 </td>
                             </tr>
                             <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
@@ -235,7 +276,9 @@
                                 <td class="px-6 py-4 text-sm font-mono">18.721.455-K</td>
                                 <td class="px-6 py-4 text-sm font-semibold">Cifuentes Garrido, Marcos</td>
                                 <td class="px-6 py-4 text-right">
-                                    <input checked class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer" type="checkbox"/>
+                                    <input checked
+                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                        type="checkbox" />
                                 </td>
                             </tr>
                             <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
@@ -243,7 +286,9 @@
                                 <td class="px-6 py-4 text-sm font-mono">16.112.309-4</td>
                                 <td class="px-6 py-4 text-sm font-semibold">Mendoza Rojas, Javiera</td>
                                 <td class="px-6 py-4 text-right">
-                                    <input class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer" type="checkbox"/>
+                                    <input
+                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                        type="checkbox" />
                                 </td>
                             </tr>
                             <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
@@ -251,7 +296,9 @@
                                 <td class="px-6 py-4 text-sm font-mono">17.291.883-2</td>
                                 <td class="px-6 py-4 text-sm font-semibold">Pérez Soto, Ignacio</td>
                                 <td class="px-6 py-4 text-right">
-                                    <input checked class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer" type="checkbox"/>
+                                    <input checked
+                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                        type="checkbox" />
                                 </td>
                             </tr>
                             <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
@@ -259,7 +306,9 @@
                                 <td class="px-6 py-4 text-sm font-mono">19.554.120-1</td>
                                 <td class="px-6 py-4 text-sm font-semibold">Valenzuela Díaz, Andrea</td>
                                 <td class="px-6 py-4 text-right">
-                                    <input checked class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer" type="checkbox"/>
+                                    <input checked
+                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                        type="checkbox" />
                                 </td>
                             </tr>
                             <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
@@ -267,7 +316,9 @@
                                 <td class="px-6 py-4 text-sm font-mono">14.876.234-5</td>
                                 <td class="px-6 py-4 text-sm font-semibold">González Muñoz, Roberto</td>
                                 <td class="px-6 py-4 text-right">
-                                    <input checked class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer" type="checkbox"/>
+                                    <input checked
+                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                        type="checkbox" />
                                 </td>
                             </tr>
                             <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
@@ -275,7 +326,9 @@
                                 <td class="px-6 py-4 text-sm font-mono">20.123.456-7</td>
                                 <td class="px-6 py-4 text-sm font-semibold">Fernández López, María</td>
                                 <td class="px-6 py-4 text-right">
-                                    <input checked class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer" type="checkbox"/>
+                                    <input checked
+                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                        type="checkbox" />
                                 </td>
                             </tr>
                             <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
@@ -283,7 +336,9 @@
                                 <td class="px-6 py-4 text-sm font-mono">13.987.654-3</td>
                                 <td class="px-6 py-4 text-sm font-semibold">Ramírez Castro, Pablo</td>
                                 <td class="px-6 py-4 text-right">
-                                    <input checked class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer" type="checkbox"/>
+                                    <input checked
+                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                        type="checkbox" />
                                 </td>
                             </tr>
                         </tbody>
@@ -294,18 +349,24 @@
     </div>
 
     <!-- Fixed Footer Bar -->
-    <div class="fixed bottom-0 left-64 right-0 bg-white dark:bg-gray-900 border-t border-[#dbdee6] dark:border-gray-700 px-6 py-4 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-40">
+    <div
+        class="fixed bottom-0 left-64 right-0 bg-white dark:bg-gray-900 border-t border-[#dbdee6] dark:border-gray-700 px-6 py-4 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-40">
         <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-6 text-sm font-medium text-[#616e89] dark:text-gray-400">
-                <span class="flex items-center gap-1.5"><strong class="text-[#111318] dark:text-white">25</strong> participantes</span>
-                <span class="flex items-center gap-1.5"><span class="text-success text-lg leading-none">✓</span> <strong class="text-[#111318] dark:text-white">24</strong> aprobados</span>
-                <span class="flex items-center gap-1.5"><span class="text-danger text-lg leading-none">✗</span> <strong class="text-[#111318] dark:text-white">1</strong> reprobado</span>
+                <span class="flex items-center gap-1.5"><strong class="text-[#111318] dark:text-white">25</strong>
+                    participantes</span>
+                <span class="flex items-center gap-1.5"><span class="text-success text-lg leading-none">✓</span> <strong
+                        class="text-[#111318] dark:text-white">24</strong> aprobados</span>
+                <span class="flex items-center gap-1.5"><span class="text-danger text-lg leading-none">✗</span> <strong
+                        class="text-[#111318] dark:text-white">1</strong> reprobado</span>
             </div>
             <div class="flex gap-4 w-full md:w-auto">
-                <button class="flex-1 md:flex-none h-10 px-6 border border-[#dbdee6] dark:border-gray-700 text-[#616e89] dark:text-gray-300 rounded-lg text-sm font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                <button
+                    class="flex-1 md:flex-none h-10 px-6 border border-[#dbdee6] dark:border-gray-700 text-[#616e89] dark:text-gray-300 rounded-lg text-sm font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     CANCELAR
                 </button>
-                <button class="flex-1 md:flex-none h-10 px-6 bg-success text-white rounded-lg text-sm font-bold hover:bg-success/90 transition-colors flex items-center justify-center gap-2 shadow-sm">
+                <button
+                    class="flex-1 md:flex-none h-10 px-6 bg-success text-white rounded-lg text-sm font-bold hover:bg-success/90 transition-colors flex items-center justify-center gap-2 shadow-sm">
                     <span class="material-symbols-outlined text-lg">save</span>
                     GUARDAR RESULTADOS
                 </button>
@@ -315,4 +376,5 @@
 
     <script src="../assets/js/components/sidebar.js"></script>
 </body>
+
 </html>
