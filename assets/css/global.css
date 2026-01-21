@@ -266,3 +266,64 @@ input:disabled {
 .gradient-danger {
     background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
 }
+
+/* =============================================
+   BADGES DE ROL PARA MENÚ LATERAL
+   ============================================= */
+
+/* Badge base */
+.badge-role {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.625rem; /* 10px */
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    margin-left: auto;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+/* Badge Relator - Verde */
+.badge-role-relator,
+a[href*="portal-relator"] .badge-role {
+    background-color: #dcfce7; /* green-100 */
+    color: #15803d; /* green-700 */
+}
+
+/* Badge OTIC - Morado */
+.badge-role-otic,
+a[href*="portal-otic"] .badge-role {
+    background-color: #f3e8ff; /* purple-100 */
+    color: #7e22ce; /* purple-700 */
+}
+
+/* Badge Cliente - Azul */
+.badge-role-cliente,
+a[href*="portal-cliente"] .badge-role {
+    background-color: #dbeafe; /* blue-100 */
+    color: #1d4ed8; /* blue-700 */
+}
+
+/* Hover effects para links con badges */
+.nav-link:has(.badge-role):hover {
+    background-color: #f3f4f6;
+}
+
+.dark .nav-link:has(.badge-role):hover {
+    background-color: #1f2937;
+}
+
+/* Separador de sección en el menú */
+.menu-separator {
+    margin: 1rem 0 0.5rem;
+    padding: 0 0.75rem;
+}
+
+.menu-separator-label {
+    font-size: 0.625rem;
+    font-weight: 700;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}

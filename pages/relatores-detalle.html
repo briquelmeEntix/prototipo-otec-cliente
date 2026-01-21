@@ -91,8 +91,28 @@
                         <span class="text-sm font-medium">Reportes</span>
                     </a>
                 </nav>
+
+                <!-- Separador: Portales por Rol (solo visibles según rol en producción) -->
+                <div class="pt-4 pb-2 px-3">
+                    <p class="text-[10px] uppercase tracking-wider text-slate-400 font-bold">Portales</p>
+                </div>
+                <nav class="space-y-1">
+                    <!-- Solo visible para rol: Relator -->
+                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg" href="portal-relator.html">
+                        <span class="material-symbols-outlined">school</span>
+                        <span class="text-sm font-medium">Portal Relator</span>
+                        <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-bold">Relator</span>
+                    </a>
+                    <!-- Solo visible para rol: OTIC -->
+                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg" href="portal-otic.html">
+                        <span class="material-symbols-outlined">task_alt</span>
+                        <span class="text-sm font-medium">Aprobación OTIC</span>
+                        <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 font-bold">OTIC</span>
+                    </a>
+                </nav>
+
                 <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg" href="#">
+                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg" href="configuracion.html">
                         <span class="material-symbols-outlined">settings</span>
                         <span class="text-sm font-medium">Configuración</span>
                     </a>

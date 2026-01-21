@@ -3,29 +3,493 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Configuración - Sistema OTEC</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <title>Gestión de Usuarios - Sistema OTEC</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <link rel="stylesheet" href="../assets/css/global.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2463eb",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-tab {
+            border-bottom: 3px solid #2463eb;
+            color: #2463eb;
+        }
+    </style>
 </head>
-<body class="bg-gray-50 font-['Inter']">
-    <div class="min-h-screen flex items-center justify-center p-6">
-        <div class="bg-white rounded-xl shadow-lg p-8 max-w-md w-full text-center space-y-6">
-            <div class="size-20 mx-auto bg-slate-100 rounded-full flex items-center justify-center">
-                <span class="material-symbols-outlined text-[48px] text-slate-600">settings</span>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 min-h-screen">
+<div class="flex h-screen overflow-hidden">
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between p-4 shrink-0">
+        <div class="flex flex-col gap-6">
+            <div class="flex items-center gap-3 px-2">
+                <div class="bg-primary rounded-lg p-2 flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined">analytics</span>
+                </div>
+                <div class="flex flex-col">
+                    <h1 class="text-slate-900 dark:text-white text-base font-bold leading-tight">Sistema OTEC</h1>
+                    <p class="text-slate-500 dark:text-slate-400 text-xs font-medium">Administrador</p>
+                </div>
+            </div>
+            <nav class="flex flex-col gap-1">
+                <a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-primary" href="#">
+                    <span class="material-symbols-outlined">group</span>
+                    <p class="text-sm font-semibold">Usuarios</p>
+                </a>
+            </nav>
+        </div>
+        <div class="flex flex-col gap-1 pt-4 border-t border-slate-200 dark:border-slate-800">
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" href="../index.html">
+                <span class="material-symbols-outlined text-slate-500">home</span>
+                <p class="text-slate-700 dark:text-slate-300 text-sm font-medium">Inicio</p>
+            </a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 group transition-colors" href="#" id="logoutBtn">
+                <span class="material-symbols-outlined text-slate-500 group-hover:text-red-500">logout</span>
+                <p class="text-slate-700 dark:text-slate-300 text-sm font-medium group-hover:text-red-600">Salir</p>
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col overflow-hidden bg-background-light dark:bg-background-dark">
+        <!-- Header -->
+        <header class="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shrink-0">
+            <div class="flex items-center justify-between px-8 py-6">
+                <h2 class="text-slate-900 dark:text-white text-3xl font-bold tracking-tight">Gestión de Usuarios</h2>
+                <button id="newUserBtn" class="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg font-semibold text-sm transition-all shadow-sm">
+                    <span class="material-symbols-outlined text-[20px]">add</span>
+                    <span>NUEVO USUARIO</span>
+                </button>
+            </div>
+            <div class="px-8">
+                <div class="flex gap-8">
+                    <button class="flex items-center gap-2 pb-4 pt-2 text-sm font-bold active-tab border-b-2">
+                        <span class="material-symbols-outlined text-[20px]">group</span>
+                        Usuarios
+                    </button>
+                    <button class="flex items-center gap-2 pb-4 pt-2 text-sm font-bold text-slate-400 dark:text-slate-500 cursor-not-allowed border-b-2 border-transparent" disabled>
+                        <span class="material-symbols-outlined text-[20px]">settings</span>
+                        General
+                    </button>
+                    <button class="flex items-center gap-2 pb-4 pt-2 text-sm font-bold text-slate-400 dark:text-slate-500 cursor-not-allowed border-b-2 border-transparent" disabled>
+                        <span class="material-symbols-outlined text-[20px]">notifications</span>
+                        Notificaciones
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Content Section -->
+        <section class="flex-1 overflow-y-auto p-8 space-y-6">
+            <!-- Filters -->
+            <div class="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-wrap gap-4 items-end">
+                <div class="flex-1 min-w-[300px]">
+                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Búsqueda rápida</label>
+                    <div class="relative">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">search</span>
+                        <input id="searchInput" class="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-primary focus:border-primary" placeholder="Buscar por RUT, Email o Nombre..." type="text"/>
+                    </div>
+                </div>
+                <div class="w-48">
+                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Filtrar por Rol</label>
+                    <div class="relative">
+                        <select id="roleFilter" class="w-full pl-3 pr-10 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg text-sm appearance-none focus:ring-primary focus:border-primary">
+                            <option>Todos los Roles</option>
+                            <option>Admin</option>
+                            <option>Coordinador</option>
+                            <option>OTIC</option>
+                            <option>Relator</option>
+                            <option>Cliente</option>
+                        </select>
+                        <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+                    </div>
+                </div>
+                <div class="w-48">
+                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Filtrar por Estado</label>
+                    <div class="relative">
+                        <select id="statusFilter" class="w-full pl-3 pr-10 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg text-sm appearance-none focus:ring-primary focus:border-primary">
+                            <option>Todos los Estados</option>
+                            <option>Activo</option>
+                            <option>Inactivo</option>
+                        </select>
+                        <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Table -->
+            <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Nombre Completo</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Email</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Rol</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Empresa / OTIC</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-center">Estado</th>
+                            <th class="px-6 py-4 text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-right">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center gap-3">
+                                    <div class="size-8 rounded-full bg-slate-200 flex items-center justify-center font-bold text-xs text-slate-600">JS</div>
+                                    <span class="text-sm font-bold text-slate-900 dark:text-white">Javier Silva</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">javier.silva@otec.cl</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400">ADMIN</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-500 italic">—</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">ACTIVO</span>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex justify-end gap-2">
+                                    <button class="edit-btn p-1.5 text-slate-400 hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </button>
+                                    <button class="delete-btn p-1.5 text-slate-400 hover:text-red-500 transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center gap-3">
+                                    <div class="size-8 rounded-full bg-slate-200 flex items-center justify-center font-bold text-xs text-slate-600">MM</div>
+                                    <span class="text-sm font-bold text-slate-900 dark:text-white">Marcela Méndez</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">m.mendez@otec.cl</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">COORD</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-500 italic">—</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">ACTIVO</span>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex justify-end gap-2">
+                                    <button class="edit-btn p-1.5 text-slate-400 hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </button>
+                                    <button class="delete-btn p-1.5 text-slate-400 hover:text-red-500 transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center gap-3">
+                                    <div class="size-8 rounded-full bg-slate-200 flex items-center justify-center font-bold text-xs text-slate-600">RP</div>
+                                    <span class="text-sm font-bold text-slate-900 dark:text-white">Ricardo Palma</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">rpalma@oticbanca.cl</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">OTIC</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 font-medium">OTIC de la Banca</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold bg-slate-100 text-slate-500 dark:bg-slate-800 dark:text-slate-500">INACTIVO</span>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex justify-end gap-2">
+                                    <button class="edit-btn p-1.5 text-slate-400 hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </button>
+                                    <button class="delete-btn p-1.5 text-slate-400 hover:text-red-500 transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center gap-3">
+                                    <div class="size-8 rounded-full bg-slate-200 flex items-center justify-center font-bold text-xs text-slate-600">AV</div>
+                                    <span class="text-sm font-bold text-slate-900 dark:text-white">Andrea Valdés</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">andrea.v@gmail.com</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400">RELATOR</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-500 italic">Independiente</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">ACTIVO</span>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex justify-end gap-2">
+                                    <button class="edit-btn p-1.5 text-slate-400 hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </button>
+                                    <button class="delete-btn p-1.5 text-slate-400 hover:text-red-500 transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/30 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center gap-3">
+                                    <div class="size-8 rounded-full bg-slate-200 flex items-center justify-center font-bold text-xs text-slate-600">CR</div>
+                                    <span class="text-sm font-bold text-slate-900 dark:text-white">Carlos Rojas</span>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400">crojas@minera.cl</td>
+                            <td class="px-6 py-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400">CLIENTE</span>
+                            </td>
+                            <td class="px-6 py-4 text-sm text-slate-600 dark:text-slate-400 font-medium">Minera Los Pelambres</td>
+                            <td class="px-6 py-4 text-center">
+                                <span class="inline-flex items-center px-2 py-1 rounded-md text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400">ACTIVO</span>
+                            </td>
+                            <td class="px-6 py-4 text-right">
+                                <div class="flex justify-end gap-2">
+                                    <button class="edit-btn p-1.5 text-slate-400 hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </button>
+                                    <button class="delete-btn p-1.5 text-slate-400 hover:text-red-500 transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <div class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between border-t border-slate-200 dark:border-slate-800">
+                    <p class="text-xs text-slate-500 font-medium">Mostrando 5 de 128 usuarios</p>
+                    <div class="flex gap-1">
+                        <button class="size-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-400">
+                            <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+                        </button>
+                        <button class="size-8 flex items-center justify-center rounded border border-primary bg-primary text-white text-xs font-bold">1</button>
+                        <button class="size-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs font-bold">2</button>
+                        <button class="size-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-400 text-xs font-bold">3</button>
+                        <button class="size-8 flex items-center justify-center rounded border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-400">
+                            <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<!-- Modal: Nuevo/Editar Usuario -->
+<div id="userModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="sticky top-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-4 flex items-center justify-between">
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white" id="modalTitle">Nuevo Usuario</h3>
+            <button id="closeModalBtn" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+                <span class="material-symbols-outlined text-[24px]">close</span>
+            </button>
+        </div>
+        
+        <form id="userForm" class="p-6 space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Nombre Completo *</label>
+                    <input type="text" name="name" required class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-primary focus:border-primary" placeholder="Ej: Juan Pérez"/>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Email *</label>
+                    <input type="email" name="email" required class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-primary focus:border-primary" placeholder="usuario@ejemplo.cl"/>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">RUT</label>
+                    <input type="text" name="rut" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-primary focus:border-primary" placeholder="12.345.678-9"/>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Teléfono</label>
+                    <input type="tel" name="phone" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-primary focus:border-primary" placeholder="+56 9 1234 5678"/>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Rol *</label>
+                    <div class="relative">
+                        <select name="role" required class="w-full pl-3 pr-10 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg text-sm appearance-none focus:ring-primary focus:border-primary">
+                            <option value="">Seleccionar rol</option>
+                            <option value="admin">Admin</option>
+                            <option value="coordinador">Coordinador</option>
+                            <option value="otic">OTIC</option>
+                            <option value="relator">Relator</option>
+                            <option value="cliente">Cliente</option>
+                        </select>
+                        <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Estado *</label>
+                    <div class="relative">
+                        <select name="status" required class="w-full pl-3 pr-10 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg text-sm appearance-none focus:ring-primary focus:border-primary">
+                            <option value="active">Activo</option>
+                            <option value="inactive">Inactivo</option>
+                        </select>
+                        <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none">expand_more</span>
+                    </div>
+                </div>
             </div>
             <div>
-                <h1 class="text-2xl font-black text-slate-900 mb-2">Configuración</h1>
-                <p class="text-slate-600">Ajustes y preferencias del sistema próximamente.</p>
+                <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Empresa / OTIC</label>
+                <input type="text" name="company" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 rounded-lg text-sm focus:ring-primary focus:border-primary" placeholder="Nombre de la empresa u organización"/>
             </div>
-            <div class="pt-4">
-                <a href="dashboard.html" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition-colors">
-                    <span class="material-symbols-outlined text-[20px]">arrow_back</span>
-                    <span>Volver al Dashboard</span>
-                </a>
+            
+            <div class="flex justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-800">
+                <button type="button" id="cancelModalBtn" class="px-5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg font-semibold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    Cancelar
+                </button>
+                <button type="submit" class="px-5 py-2.5 bg-primary hover:bg-primary/90 text-white rounded-lg font-semibold text-sm transition-colors shadow-sm">
+                    Guardar Usuario
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Modal: Confirmar Eliminación -->
+<div id="deleteModal" class="hidden fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl max-w-md w-full">
+        <div class="p-6 text-center space-y-4">
+            <div class="size-16 mx-auto bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-red-600 dark:text-red-400 text-[32px]">delete</span>
+            </div>
+            <div>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">¿Eliminar Usuario?</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400">Esta acción no se puede deshacer. El usuario será eliminado permanentemente del sistema.</p>
+            </div>
+            <div class="flex gap-3 pt-2">
+                <button id="cancelDeleteBtn" class="flex-1 px-5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-lg font-semibold text-sm hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+                    Cancelar
+                </button>
+                <button id="confirmDeleteBtn" class="flex-1 px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold text-sm transition-colors shadow-sm">
+                    Eliminar
+                </button>
             </div>
         </div>
     </div>
+</div>
+
+<!-- Scripts -->
+<script>
+    // Modal functionality
+    const userModal = document.getElementById('userModal');
+    const deleteModal = document.getElementById('deleteModal');
+    const newUserBtn = document.getElementById('newUserBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const cancelModalBtn = document.getElementById('cancelModalBtn');
+    const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+    const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+    const userForm = document.getElementById('userForm');
+    const modalTitle = document.getElementById('modalTitle');
+    
+    // Botones de editar
+    const editBtns = document.querySelectorAll('.edit-btn');
+    editBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            modalTitle.textContent = 'Editar Usuario';
+            userModal.classList.remove('hidden');
+        });
+    });
+
+    // Botones de eliminar
+    const deleteBtns = document.querySelectorAll('.delete-btn');
+    deleteBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            deleteModal.classList.remove('hidden');
+        });
+    });
+
+    // Abrir modal nuevo usuario
+    newUserBtn.addEventListener('click', () => {
+        modalTitle.textContent = 'Nuevo Usuario';
+        userForm.reset();
+        userModal.classList.remove('hidden');
+    });
+
+    // Cerrar modal usuario
+    closeModalBtn.addEventListener('click', () => {
+        userModal.classList.add('hidden');
+    });
+
+    cancelModalBtn.addEventListener('click', () => {
+        userModal.classList.add('hidden');
+    });
+
+    // Cerrar modal eliminar
+    cancelDeleteBtn.addEventListener('click', () => {
+        deleteModal.classList.add('hidden');
+    });
+
+    confirmDeleteBtn.addEventListener('click', () => {
+        // Aquí iría la lógica de eliminación
+        alert('Usuario eliminado (esto es un prototipo)');
+        deleteModal.classList.add('hidden');
+    });
+
+    // Enviar formulario
+    userForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Aquí iría la lógica de guardado
+        alert('Usuario guardado (esto es un prototipo)');
+        userModal.classList.add('hidden');
+    });
+
+    // Cerrar modales al hacer clic fuera
+    userModal.addEventListener('click', (e) => {
+        if (e.target === userModal) {
+            userModal.classList.add('hidden');
+        }
+    });
+
+    deleteModal.addEventListener('click', (e) => {
+        if (e.target === deleteModal) {
+            deleteModal.classList.add('hidden');
+        }
+    });
+
+    // Logout functionality
+    document.getElementById('logoutBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        if (confirm('¿Estás seguro que deseas cerrar sesión?')) {
+            localStorage.removeItem('sesion');
+            window.location.href = '../login.html';
+        }
+    });
+
+    // Verificar sesión
+    (function() {
+        const sesion = localStorage.getItem('sesion');
+        if (!sesion) {
+            window.location.href = '../login.html';
+        }
+    })();
+</script>
 </body>
 </html>

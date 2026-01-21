@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Aprobación OTIC - Sistema OTEC</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2563EB",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#111621",
+                        "success": "#10b981",
+                        "danger": "#ef4444",
+                        "warning": "#f59e0b"
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav {
+            background-color: rgba(37, 99, 235, 0.1);
+            color: #2563EB;
+            border-right: 4px solid #2563EB;
+        }
+    </style>
+    <script>
+        // Verificar sesión antes de cargar la página
+        (function() {
+            const sesion = localStorage.getItem('sesion');
+            if (!sesion) {
+                window.location.href = '../login.html';
+            }
+        })();
+    </script>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-[#111318] dark:text-white antialiased">
+    <div class="flex h-screen overflow-hidden">
+        <!--
+            NOTA PARA PRODUCCIÓN (C#):
+
+            Este menú muestra TODAS las opciones para testing del prototipo.
+
+            En la aplicación real (ASP.NET Core), el menú se filtrará según el rol:
+
+            - ADMIN: Ve todo
+            - COORDINADOR: Ve Dashboard, Solicitudes, Empresas, Relatores, Certificados
+            - OTIC: Ve solo "Aprobación OTIC"
+            - RELATOR: Ve solo "Portal Relator"
+            - CLIENTE: Ve solo "Portal Cliente"
+
+            La lógica de mostrar/ocultar opciones se implementará en _Layout.cshtml
+            usando @User.IsInRole("NombreRol")
+        -->
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white dark:bg-[#1a202c] border-r border-[#dbdee6] dark:border-gray-800 flex flex-col shrink-0">
+            <div class="p-6">
+                <div class="flex items-center gap-3">
+                    <div class="bg-primary rounded-lg p-2 text-white">
+                        <span class="material-symbols-outlined">analytics</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-[#111318] dark:text-white text-base font-bold leading-tight">Sistema OTEC</h1>
+                        <p class="text-[#616e89] text-xs font-normal">Gestión Corporativa</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="flex-1 px-3 space-y-1" id="sidebar-nav">
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="dashboard.html" data-page="inicio">
+                    <span class="material-symbols-outlined text-[24px]">house</span>
+                    <span class="text-sm font-medium">Inicio</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="solicitudes-listado.html" data-page="solicitudes">
+                    <span class="material-symbols-outlined text-[24px]">assignment</span>
+                    <span class="text-sm font-medium">Solicitudes</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="relatores-listado.html" data-page="relatores">
+                    <span class="material-symbols-outlined text-[24px]">group</span>
+                    <span class="text-sm font-medium">Relatores</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="certificados.html" data-page="certificados">
+                    <span class="material-symbols-outlined text-[24px]">verified</span>
+                    <span class="text-sm font-medium">Certificados</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="reportes.html" data-page="reportes">
+                    <span class="material-symbols-outlined text-[24px]">bar_chart</span>
+                    <span class="text-sm font-medium">Reportes</span>
+                </a>
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="empresas-listado.html" data-page="empresas">
+                    <span class="material-symbols-outlined text-[24px]">business</span>
+                    <span class="text-sm font-medium">Empresas</span>
+                </a>
+
+                <!-- Separador: Portales por Rol -->
+                <div class="pt-4 pb-2 px-3">
+                    <p class="text-[10px] uppercase tracking-wider text-[#616e89] font-bold">Portales</p>
+                </div>
+
+                <!-- Solo visible para rol: Relator -->
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="portal-relator.html" data-page="portal-relator">
+                    <span class="material-symbols-outlined text-[24px]">school</span>
+                    <span class="text-sm font-medium">Portal Relator</span>
+                    <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-bold">Relator</span>
+                </a>
+
+                <!-- Solo visible para rol: OTIC -->
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="portal-otic.html" data-page="portal-otic">
+                    <span class="material-symbols-outlined text-[24px]">task_alt</span>
+                    <span class="text-sm font-medium">Aprobación OTIC</span>
+                    <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 font-bold">OTIC</span>
+                </a>
+
+                <!-- Separador: Configuración -->
+                <div class="pt-4 pb-2 px-3">
+                    <p class="text-[10px] uppercase tracking-wider text-[#616e89] font-bold">Configuración</p>
+                </div>
+                <a class="flex items-center gap-3 px-3 py-2 text-[#616e89] hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors" href="configuracion.html" data-page="ajustes">
+                    <span class="material-symbols-outlined text-[24px]">settings</span>
+                    <span class="text-sm font-medium">Ajustes</span>
+                </a>
+            </nav>
+            <div class="p-4 border-t border-[#dbdee6] dark:border-gray-800">
+                <div class="flex items-center gap-3">
+                    <div class="size-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold">AO</div>
+                    <div class="flex flex-col">
+                        <p class="text-xs font-bold dark:text-white">Admin OTIC</p>
+                        <p class="text-[10px] text-[#616e89]">admin@otic.cl</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-y-auto">
+            <!-- Header -->
+            <header class="bg-white dark:bg-[#111621] px-8 py-6 border-b border-[#dbdee6] dark:border-gray-800 sticky top-0 z-10">
+                <!-- Breadcrumbs -->
+                <nav class="flex items-center gap-2 mb-4 text-sm text-gray-500 dark:text-gray-400">
+                    <a class="hover:text-primary transition-colors" href="dashboard.html">Inicio</a>
+                    <span class="material-symbols-outlined text-sm">chevron_right</span>
+                    <span class="text-[#111318] dark:text-white font-medium">Aprobación OTIC</span>
+                </nav>
+
+                <div class="flex flex-wrap justify-between items-center gap-4">
+                    <div>
+                        <h2 class="text-[#111318] dark:text-white text-2xl font-black tracking-tight">Solicitudes Pendientes de Aprobación</h2>
+                        <p class="text-[#616e89] text-sm mt-1">Revise y gestione las cotizaciones enviadas por las empresas OTEC.</p>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <div class="p-8">
+                <!-- Filter Bar -->
+                <div class="bg-white dark:bg-gray-900 p-4 rounded-xl shadow-sm border border-[#dbdee6] dark:border-gray-800 mb-8">
+                    <div class="flex flex-col md:flex-row gap-3">
+                        <div class="relative flex-none min-w-[160px]">
+                            <select class="w-full h-11 pl-3 pr-10 py-2 text-sm border border-[#dbdee6] dark:border-gray-700 bg-white dark:bg-gray-800 text-[#111318] dark:text-white rounded-lg appearance-none focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+                                <option>Estado: Todas</option>
+                                <option>Estado: Pendientes</option>
+                                <option>Estado: Rechazadas</option>
+                                <option>Estado: Aprobadas</option>
+                            </select>
+                            <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-gray-400 text-lg">filter_list</span>
+                            </div>
+                        </div>
+                        <div class="relative flex-grow">
+                            <input class="w-full h-11 pl-11 pr-4 py-2 text-sm border border-[#dbdee6] dark:border-gray-700 bg-white dark:bg-gray-800 text-[#111318] dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="Buscar por empresa o curso..." type="text"/>
+                            <div class="absolute inset-y-0 left-3.5 flex items-center pointer-events-none">
+                                <span class="material-symbols-outlined text-gray-400 text-lg">search</span>
+                            </div>
+                        </div>
+                        <button class="flex-none bg-primary text-white px-6 h-11 rounded-lg font-bold text-sm hover:bg-primary/90 transition-all flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined text-lg">search</span>
+                            BUSCAR
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Request List -->
+                <div class="space-y-6">
+                    <!-- Card 1 -->
+                    <div class="bg-white dark:bg-gray-900 rounded-xl border border-[#dbdee6] dark:border-gray-800 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">#OT-2024-001</span>
+                                <div class="flex items-center gap-1.5 px-3 py-1 bg-warning/10 text-warning text-xs font-bold rounded-full">
+                                    <span class="material-symbols-outlined text-sm">schedule</span>
+                                    PENDIENTE
+                                </div>
+                            </div>
+                            <h4 class="text-xl font-bold text-[#111318] dark:text-white mb-4">Liderazgo Efectivo y Comunicación</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500">Empresa</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">Tech Solutions SpA</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500">Participantes</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">15 personas</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500">Fechas</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">12 Oct - 15 Oct</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500">Modalidad</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">E-learning / Sincrónico</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                                <div class="text-success text-2xl font-bold">
+                                    $1.785.000 <span class="text-xs font-normal text-gray-400">(IVA incluido)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button class="h-10 px-4 border border-[#dbdee6] dark:border-gray-700 text-gray-600 dark:text-gray-300 rounded-lg text-sm font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors uppercase flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-lg">visibility</span>
+                                        Ver Cotización
+                                    </button>
+                                    <button class="h-10 px-4 bg-danger/10 text-danger rounded-lg text-sm font-bold hover:bg-danger/20 transition-colors uppercase flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-lg">close</span>
+                                        Rechazar
+                                    </button>
+                                    <button class="h-10 px-4 bg-success text-white rounded-lg text-sm font-bold hover:bg-success/90 transition-colors uppercase flex items-center gap-2 shadow-sm">
+                                        <span class="material-symbols-outlined text-lg">check_circle</span>
+                                        Aprobar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="bg-white dark:bg-gray-900 rounded-xl border border-[#dbdee6] dark:border-gray-800 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">#OT-2024-002</span>
+                                <div class="flex items-center gap-1.5 px-3 py-1 bg-warning/10 text-warning text-xs font-bold rounded-full">
+                                    <span class="material-symbols-outlined text-sm">schedule</span>
+                                    PENDIENTE
+                                </div>
+                            </div>
+                            <h4 class="text-xl font-bold text-[#111318] dark:text-white mb-4">Manejo de Sustancias Peligrosas</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500">Empresa</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">Logística del Norte</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500">Participantes</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">8 personas</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500">Fechas</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">20 Oct - 22 Oct</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500">Modalidad</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">Presencial / En Terreno</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                                <div class="text-success text-2xl font-bold">
+                                    $950.000 <span class="text-xs font-normal text-gray-400">(IVA incluido)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button class="h-10 px-4 border border-[#dbdee6] dark:border-gray-700 text-gray-600 dark:text-gray-300 rounded-lg text-sm font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors uppercase flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-lg">visibility</span>
+                                        Ver Cotización
+                                    </button>
+                                    <button class="h-10 px-4 bg-danger/10 text-danger rounded-lg text-sm font-bold hover:bg-danger/20 transition-colors uppercase flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-lg">close</span>
+                                        Rechazar
+                                    </button>
+                                    <button class="h-10 px-4 bg-success text-white rounded-lg text-sm font-bold hover:bg-success/90 transition-colors uppercase flex items-center gap-2 shadow-sm">
+                                        <span class="material-symbols-outlined text-lg">check_circle</span>
+                                        Aprobar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="bg-white dark:bg-gray-900 rounded-xl border border-[#dbdee6] dark:border-gray-800 shadow-sm overflow-hidden hover:shadow-md transition-shadow">
+                        <div class="p-5">
+                            <div class="flex justify-between items-start mb-4">
+                                <span class="text-sm font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">#OT-2024-003</span>
+                                <div class="flex items-center gap-1.5 px-3 py-1 bg-warning/10 text-warning text-xs font-bold rounded-full">
+                                    <span class="material-symbols-outlined text-sm">schedule</span>
+                                    PENDIENTE
+                                </div>
+                            </div>
+                            <h4 class="text-xl font-bold text-[#111318] dark:text-white mb-4">Excel Avanzado para Finanzas</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500">Empresa</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">Global Trading Group</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500">Participantes</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">25 personas</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500">Fechas</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">05 Nov - 10 Nov</p>
+                                </div>
+                                <div class="space-y-1">
+                                    <p class="text-[10px] uppercase font-bold text-gray-400 dark:text-gray-500">Modalidad</p>
+                                    <p class="text-sm text-gray-700 dark:text-gray-300 font-medium">Autoinstrucción</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-4 border-t border-gray-100 dark:border-gray-800">
+                                <div class="text-success text-2xl font-bold">
+                                    $2.450.000 <span class="text-xs font-normal text-gray-400">(IVA incluido)</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button class="h-10 px-4 border border-[#dbdee6] dark:border-gray-700 text-gray-600 dark:text-gray-300 rounded-lg text-sm font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors uppercase flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-lg">visibility</span>
+                                        Ver Cotización
+                                    </button>
+                                    <button class="h-10 px-4 bg-danger/10 text-danger rounded-lg text-sm font-bold hover:bg-danger/20 transition-colors uppercase flex items-center gap-2">
+                                        <span class="material-symbols-outlined text-lg">close</span>
+                                        Rechazar
+                                    </button>
+                                    <button class="h-10 px-4 bg-success text-white rounded-lg text-sm font-bold hover:bg-success/90 transition-colors uppercase flex items-center gap-2 shadow-sm">
+                                        <span class="material-symbols-outlined text-lg">check_circle</span>
+                                        Aprobar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Load More -->
+                <div class="mt-8 text-center">
+                    <button class="text-primary font-bold text-sm hover:underline">Ver todas las solicitudes históricas</button>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="mt-auto py-8 border-t border-[#dbdee6] dark:border-gray-800">
+                <div class="max-w-[1000px] mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 dark:text-gray-400 text-sm">
+                    <p>© 2024 Sistema de Gestión OTEC. Portal OTIC.</p>
+                    <div class="flex gap-6">
+                        <a class="hover:text-primary" href="#">Términos y Condiciones</a>
+                        <a class="hover:text-primary" href="#">Soporte</a>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <script src="../assets/js/components/sidebar.js"></script>
+</body>
+</html>
