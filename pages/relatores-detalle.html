@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html class="light" lang="es">
+
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Detalle Relator - Sistema OTEC</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -20,19 +23,24 @@
                     fontFamily: {
                         "display": ["Inter"]
                     },
-                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
                 },
             },
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
+
         .filled-icon {
             font-variation-settings: 'FILL' 1;
         }
+
         .modal {
             position: fixed;
             inset: 0;
@@ -45,16 +53,29 @@
             pointer-events: none;
             transition: opacity 200ms;
         }
+
         .modal.active {
             opacity: 1;
             pointer-events: auto;
         }
     </style>
 </head>
+
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display">
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" class="hidden fixed inset-0 bg-black/50 z-40 md:hidden"></div>
+
     <div class="flex min-h-screen">
         <!-- Sidebar -->
-        <aside class="w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col shrink-0 sticky top-0 h-screen">
+        <aside id="sidebar"
+            class="fixed md:static inset-y-0 left-0 z-50 w-64 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 flex flex-col shrink-0 h-screen transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+            <!-- Close button for mobile -->
+            <div class="md:hidden flex justify-end p-4">
+                <button id="close-menu-button"
+                    class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
             <div class="p-6 flex flex-col h-full">
                 <div class="flex items-center gap-3 mb-8">
                     <div class="size-10 rounded-full bg-primary flex items-center justify-center text-white">
@@ -66,27 +87,33 @@
                     </div>
                 </div>
                 <nav class="space-y-1 flex-1">
-                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg" href="#">
+                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg"
+                        href="#">
                         <span class="material-symbols-outlined">dashboard</span>
                         <span class="text-sm font-medium">Dashboard</span>
                     </a>
-                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg" href="#">
+                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg"
+                        href="#">
                         <span class="material-symbols-outlined">book</span>
                         <span class="text-sm font-medium">Cursos</span>
                     </a>
-                    <a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg" href="relatores-listado.html">
+                    <a class="flex items-center gap-3 px-3 py-2 bg-primary/10 text-primary rounded-lg"
+                        href="relatores-listado.html">
                         <span class="material-symbols-outlined filled-icon">group</span>
                         <span class="text-sm font-medium">Relatores</span>
                     </a>
-                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg" href="certificados.html">
+                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg"
+                        href="certificados.html">
                         <span class="material-symbols-outlined">verified</span>
                         <span class="text-sm font-medium">Certificados</span>
                     </a>
-                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg" href="empresas-listado.html">
+                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg"
+                        href="empresas-listado.html">
                         <span class="material-symbols-outlined">corporate_fare</span>
                         <span class="text-sm font-medium">Empresas</span>
                     </a>
-                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg" href="reportes.html">
+                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg"
+                        href="reportes.html">
                         <span class="material-symbols-outlined">bar_chart</span>
                         <span class="text-sm font-medium">Reportes</span>
                     </a>
@@ -98,21 +125,26 @@
                 </div>
                 <nav class="space-y-1">
                     <!-- Solo visible para rol: Relator -->
-                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg" href="portal-relator.html">
+                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg"
+                        href="portal-relator.html">
                         <span class="material-symbols-outlined">school</span>
                         <span class="text-sm font-medium">Portal Relator</span>
-                        <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-bold">Relator</span>
+                        <span
+                            class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-green-100 text-green-700 font-bold">Relator</span>
                     </a>
                     <!-- Solo visible para rol: OTIC -->
-                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg" href="portal-otic.html">
+                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg"
+                        href="portal-otic.html">
                         <span class="material-symbols-outlined">task_alt</span>
                         <span class="text-sm font-medium">Aprobación OTIC</span>
-                        <span class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 font-bold">OTIC</span>
+                        <span
+                            class="ml-auto text-[10px] px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 font-bold">OTIC</span>
                     </a>
                 </nav>
 
                 <div class="pt-4 border-t border-slate-100 dark:border-slate-800">
-                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg" href="configuracion.html">
+                    <a class="flex items-center gap-3 px-3 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg"
+                        href="configuracion.html">
                         <span class="material-symbols-outlined">settings</span>
                         <span class="text-sm font-medium">Configuración</span>
                     </a>
@@ -122,7 +154,15 @@
 
         <!-- Main Content -->
         <main class="flex-1 overflow-y-auto">
-            <div class="max-w-6xl mx-auto p-8">
+            <!-- Mobile menu button -->
+            <div
+                class="md:hidden sticky top-0 z-30 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 p-4">
+                <button id="mobile-menu-button"
+                    class="text-slate-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-lg transition-colors">
+                    <span class="material-symbols-outlined text-[28px]">menu</span>
+                </button>
+            </div>
+            <div class="max-w-6xl mx-auto p-4 md:p-6 lg:p-8">
                 <!-- Breadcrumb -->
                 <nav class="flex items-center gap-2 text-sm text-slate-500 mb-6">
                     <a class="hover:text-primary" href="relatores-listado.html">Relatores</a>
@@ -131,61 +171,76 @@
                 </nav>
 
                 <!-- Header -->
-                <header class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 mb-8">
-                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                <header
+                    class="bg-white dark:bg-slate-900 rounded-xl p-4 md:p-6 border border-slate-200 dark:border-slate-800 mb-6 md:mb-8">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-6">
                         <div class="flex gap-6 items-center">
                             <div class="relative">
-                                <div id="avatarHeader" class="w-20 h-20 rounded-lg bg-primary/10 border-2 border-primary flex items-center justify-center text-primary text-3xl font-bold">
+                                <div id="avatarHeader"
+                                    class="w-20 h-20 rounded-lg bg-primary/10 border-2 border-primary flex items-center justify-center text-primary text-3xl font-bold">
                                     --
                                 </div>
-                                <div id="statusIndicator" class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white dark:border-slate-900 rounded-full"></div>
+                                <div id="statusIndicator"
+                                    class="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 border-2 border-white dark:border-slate-900 rounded-full">
+                                </div>
                             </div>
                             <div>
-                                <h2 id="headerNombre" class="text-[28px] font-bold text-slate-900 dark:text-white leading-tight">Cargando...</h2>
+                                <h2 id="headerNombre"
+                                    class="text-[28px] font-bold text-slate-900 dark:text-white leading-tight">
+                                    Cargando...</h2>
                                 <div class="flex flex-wrap items-center gap-3 mt-1">
                                     <span id="relatorId" class="text-sm text-slate-500">ID: ---</span>
-                                    <span id="estadoBadge" class="px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded">Activo</span>
-                                    <span id="disponibilidadBadge" class="flex items-center gap-1 text-xs font-medium text-green-600">
+                                    <span id="estadoBadge"
+                                        class="px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 rounded">Activo</span>
+                                    <span id="disponibilidadBadge"
+                                        class="flex items-center gap-1 text-xs font-medium text-green-600">
                                         <span class="size-1.5 rounded-full bg-green-600"></span>
                                         Disponible
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <button onclick="abrirModalEditar()" class="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg font-bold transition-colors">
+                        <button onclick="abrirModalEditar()"
+                            class="flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-lg font-bold transition-colors w-full md:w-auto">
                             <span class="material-symbols-outlined text-sm">edit</span>
                             Editar Perfil
                         </button>
                     </div>
                 </header>
 
-                <div class="grid grid-cols-1 lg:grid-cols-10 gap-8">
+                <div class="grid grid-cols-1 lg:grid-cols-10 gap-6 md:gap-8">
                     <!-- Columna Izquierda -->
                     <div class="lg:col-span-6 space-y-8">
                         <!-- Información Personal -->
-                        <section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-                            <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                        <section
+                            class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                            <div
+                                class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
                                 <h3 class="text-lg font-bold">Información Personal</h3>
                                 <span class="material-symbols-outlined text-slate-400">info</span>
                             </div>
                             <div class="p-0">
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 px-6 py-4 border-b border-slate-50 dark:border-slate-800/50">
+                                <div
+                                    class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 px-6 py-4 border-b border-slate-50 dark:border-slate-800/50">
                                     <p class="text-sm text-slate-500 pb-1 sm:pb-0">Email</p>
                                     <p class="text-sm font-medium">
                                         <a id="emailLink" href="#" class="text-primary hover:underline">...</a>
                                     </p>
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 px-6 py-4 border-b border-slate-50 dark:border-slate-800/50">
+                                <div
+                                    class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 px-6 py-4 border-b border-slate-50 dark:border-slate-800/50">
                                     <p class="text-sm text-slate-500 pb-1 sm:pb-0">Teléfono</p>
                                     <p class="text-sm font-medium">
                                         <a id="telefonoLink" href="#" class="text-primary hover:underline">...</a>
                                     </p>
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 px-6 py-4 border-b border-slate-50 dark:border-slate-800/50">
+                                <div
+                                    class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 px-6 py-4 border-b border-slate-50 dark:border-slate-800/50">
                                     <p class="text-sm text-slate-500 pb-1 sm:pb-0">RUT</p>
                                     <p id="rutText" class="text-sm font-medium">...</p>
                                 </div>
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 px-6 py-4 border-b border-slate-50 dark:border-slate-800/50">
+                                <div
+                                    class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 px-6 py-4 border-b border-slate-50 dark:border-slate-800/50">
                                     <p class="text-sm text-slate-500 pb-1 sm:pb-0">Tarifa</p>
                                     <p id="tarifaText" class="text-sm font-bold text-slate-900 dark:text-white">...</p>
                                 </div>
@@ -197,7 +252,8 @@
                         </section>
 
                         <!-- Especialidades -->
-                        <section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
+                        <section
+                            class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
                             <h3 class="text-lg font-bold mb-4">Especialidades</h3>
                             <div id="especialidadesContainer" class="flex flex-wrap gap-2">
                                 <!-- Especialidades serán insertadas aquí -->
@@ -205,8 +261,10 @@
                         </section>
 
                         <!-- Historial de Cursos -->
-                        <section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
-                            <div class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+                        <section
+                            class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden">
+                            <div
+                                class="px-6 py-4 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
                                 <h3 class="text-lg font-bold">Historial de Cursos</h3>
                             </div>
                             <div class="overflow-x-auto">
@@ -215,8 +273,11 @@
                                         <tr>
                                             <th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Curso</th>
                                             <th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Fecha</th>
-                                            <th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">Participantes</th>
-                                            <th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase text-center">Calificación</th>
+                                            <th class="px-6 py-3 text-xs font-bold text-slate-500 uppercase">
+                                                Participantes</th>
+                                            <th
+                                                class="px-6 py-3 text-xs font-bold text-slate-500 uppercase text-center">
+                                                Calificación</th>
                                         </tr>
                                     </thead>
                                     <tbody id="cursosTableBody" class="divide-y divide-slate-100 dark:divide-slate-800">
@@ -230,8 +291,9 @@
                     <!-- Columna Derecha -->
                     <div class="lg:col-span-4 space-y-6">
                         <!-- Stats Cards -->
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="flex flex-col gap-2 rounded-xl p-6 bg-[#EFF6FF] border border-blue-100 text-blue-900">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div
+                                class="flex flex-col gap-2 rounded-xl p-6 bg-[#EFF6FF] border border-blue-100 text-blue-900">
                                 <p class="text-xs font-bold uppercase tracking-wider opacity-70">Total Cursos</p>
                                 <p id="statTotalCursos" class="text-3xl font-black">0</p>
                                 <div class="mt-2 flex items-center text-xs font-semibold gap-1">
@@ -239,7 +301,8 @@
                                     <span>+12%</span>
                                 </div>
                             </div>
-                            <div class="flex flex-col gap-2 rounded-xl p-6 bg-[#F0FDF4] border border-green-100 text-green-900">
+                            <div
+                                class="flex flex-col gap-2 rounded-xl p-6 bg-[#F0FDF4] border border-green-100 text-green-900">
                                 <p class="text-xs font-bold uppercase tracking-wider opacity-70">Este Mes</p>
                                 <p id="statEsteMes" class="text-3xl font-black">0</p>
                                 <div class="mt-2 flex items-center text-xs font-semibold gap-1">
@@ -247,7 +310,8 @@
                                     <span>Proyectados</span>
                                 </div>
                             </div>
-                            <div class="flex flex-col gap-2 rounded-xl p-6 bg-[#FFFBEB] border border-amber-100 text-amber-900">
+                            <div
+                                class="flex flex-col gap-2 rounded-xl p-6 bg-[#FFFBEB] border border-amber-100 text-amber-900">
                                 <p class="text-xs font-bold uppercase tracking-wider opacity-70">Calificación</p>
                                 <p id="statCalificacion" class="text-3xl font-black">0.0</p>
                                 <div class="mt-2 flex items-center text-xs font-semibold gap-1">
@@ -255,7 +319,8 @@
                                     <span>Top Relator</span>
                                 </div>
                             </div>
-                            <div class="flex flex-col gap-2 rounded-xl p-6 bg-[#FAF5FF] border border-purple-100 text-purple-900">
+                            <div
+                                class="flex flex-col gap-2 rounded-xl p-6 bg-[#FAF5FF] border border-purple-100 text-purple-900">
                                 <p class="text-xs font-bold uppercase tracking-wider opacity-70">Total Horas</p>
                                 <p id="statTotalHoras" class="text-3xl font-black">0</p>
                                 <div class="mt-2 flex items-center text-xs font-semibold gap-1">
@@ -266,15 +331,18 @@
                         </div>
 
                         <!-- Calendario -->
-                        <section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
+                        <section
+                            class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
                             <div class="flex items-center justify-between mb-6">
                                 <h3 class="font-bold">Calendario Disponibilidad</h3>
                                 <div class="flex items-center gap-2">
-                                    <button onclick="cambiarMes(-1)" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded">
+                                    <button onclick="cambiarMes(-1)"
+                                        class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded">
                                         <span class="material-symbols-outlined text-lg">chevron_left</span>
                                     </button>
                                     <span id="calendarioMes" class="text-sm font-semibold">Enero 2026</span>
-                                    <button onclick="cambiarMes(1)" class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded">
+                                    <button onclick="cambiarMes(1)"
+                                        class="p-1 hover:bg-slate-100 dark:hover:bg-slate-800 rounded">
                                         <span class="material-symbols-outlined text-lg">chevron_right</span>
                                     </button>
                                 </div>
@@ -282,7 +350,8 @@
                             <div id="calendarioGrid" class="grid grid-cols-7 gap-1 text-center">
                                 <!-- Calendario será generado aquí -->
                             </div>
-                            <div class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-4">
+                            <div
+                                class="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-4">
                                 <div class="flex items-center gap-2">
                                     <div class="size-2 rounded-full bg-red-500"></div>
                                     <span class="text-xs text-slate-500">Ocupado</span>
@@ -295,31 +364,40 @@
                         </section>
 
                         <!-- Observaciones -->
-                        <section class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
+                        <section
+                            class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6">
                             <h3 class="font-bold mb-3">Observaciones</h3>
-                            <p id="observacionesText" class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                                Relator con amplia experiencia en capacitación corporativa. Especialista en herramientas de productividad y liderazgo situacional. Excelentes evaluaciones de satisfacción en el último trimestre.
+                            <p id="observacionesText"
+                                class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+                                Relator con amplia experiencia en capacitación corporativa. Especialista en herramientas
+                                de productividad y liderazgo situacional. Excelentes evaluaciones de satisfacción en el
+                                último trimestre.
                             </p>
                         </section>
                     </div>
                 </div>
 
                 <!-- Footer -->
-                <footer class="mt-8 pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-wrap gap-3 items-center justify-between">
-                    <button onclick="volverAlListado()" class="flex items-center gap-2 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors border border-slate-200 dark:border-slate-700">
+                <footer
+                    class="mt-6 md:mt-8 pt-6 md:pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col md:flex-row flex-wrap gap-3 items-stretch md:items-center justify-between">
+                    <button onclick="volverAlListado()"
+                        class="flex items-center justify-center gap-2 px-4 py-2 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors border border-slate-200 dark:border-slate-700 w-full md:w-auto">
                         <span class="material-symbols-outlined">arrow_back</span>
                         Volver al Listado
                     </button>
-                    <div class="flex gap-3">
-                        <button onclick="enviarEmail()" class="flex items-center gap-2 px-4 py-2 text-primary border border-primary/20 bg-primary/5 hover:bg-primary/10 rounded-lg transition-colors font-medium">
+                    <div class="flex flex-col sm:flex-row gap-3">
+                        <button onclick="enviarEmail()"
+                            class="flex items-center gap-2 px-4 py-2 text-primary border border-primary/20 bg-primary/5 hover:bg-primary/10 rounded-lg transition-colors font-medium">
                             <span class="material-symbols-outlined">mail</span>
                             Enviar Email
                         </button>
-                        <button onclick="abrirAgendaCompleta()" class="flex items-center gap-2 px-4 py-2 text-primary border border-primary/20 bg-primary/5 hover:bg-primary/10 rounded-lg transition-colors font-medium">
+                        <button onclick="abrirAgendaCompleta()"
+                            class="flex items-center gap-2 px-4 py-2 text-primary border border-primary/20 bg-primary/5 hover:bg-primary/10 rounded-lg transition-colors font-medium">
                             <span class="material-symbols-outlined">calendar_today</span>
                             Ver Agenda Completa
                         </button>
-                        <button onclick="abrirModalEditar()" class="flex items-center gap-2 bg-primary text-white px-6 py-2 rounded-lg font-bold hover:bg-primary/90 transition-colors shadow-sm">
+                        <button onclick="abrirModalEditar()"
+                            class="flex items-center gap-2 bg-primary text-white px-6 py-2 rounded-lg font-bold hover:bg-primary/90 transition-colors shadow-sm">
                             <span class="material-symbols-outlined">edit</span>
                             Editar Perfil
                         </button>
@@ -331,8 +409,10 @@
 
     <!-- Modal Agenda Completa -->
     <div id="modalAgenda" class="modal">
-        <div class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-4xl mx-4 max-h-[90vh] overflow-y-auto">
-            <div class="sticky top-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-4 flex items-center justify-between">
+        <div
+            class="bg-white dark:bg-slate-900 rounded-xl shadow-2xl w-full max-w-4xl mx-4 max-h-[90vh] overflow-y-auto">
+            <div
+                class="sticky top-0 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-6 py-4 flex items-center justify-between">
                 <h3 class="text-xl font-black text-slate-900 dark:text-white">Agenda Completa</h3>
                 <button onclick="cerrarModalAgenda()" class="text-slate-400 hover:text-slate-600 transition-colors">
                     <span class="material-symbols-outlined text-[24px]">close</span>
@@ -738,5 +818,7 @@
         // Init
         cargarRelator();
     </script>
+    <script src="../assets/js/components/mobile-menu.js"></script>
 </body>
+
 </html>

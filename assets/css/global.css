@@ -37,6 +37,7 @@ html {
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -53,6 +54,7 @@ html {
         transform: translateX(100%);
         opacity: 0;
     }
+
     to {
         transform: translateX(0);
         opacity: 1;
@@ -64,6 +66,7 @@ html {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
@@ -99,19 +102,69 @@ html {
     0% {
         background-position: 200% 0;
     }
+
     100% {
         background-position: -200% 0;
     }
 }
 
-/* Estilos para tablas responsivas */
+/* =============================================
+   RESPONSIVE MOBILE MENU
+   ============================================= */
+
+/* Mobile overlay */
+.mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Sidebar transition for mobile */
+.sidebar-mobile {
+    transition: transform 0.3s ease-in-out;
+}
+
+/* =============================================
+   RESPONSIVE TABLES
+   ============================================= */
+
+/* Mobile table styles - more compact */
 @media (max-width: 768px) {
-    table {
-        font-size: 12px;
+
+    /* Make tables scrollable horizontally if needed */
+    .table-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
-    th, td {
-        padding: 8px 4px !important;
+    table {
+        font-size: 12px;
+        min-width: 100%;
+    }
+
+    th,
+    td {
+        padding: 8px 6px !important;
+        white-space: nowrap;
+    }
+
+    /* Hide less important columns on mobile - use .mobile-hidden class */
+    .mobile-hidden {
+        display: none;
+    }
+}
+
+/* Tablet adjustments */
+@media (min-width: 769px) and (max-width: 1024px) {
+    table {
+        font-size: 13px;
+    }
+
+    th,
+    td {
+        padding: 10px 8px !important;
     }
 }
 
@@ -172,6 +225,7 @@ input:disabled {
     from {
         opacity: 0;
     }
+
     to {
         opacity: 1;
     }
@@ -183,9 +237,12 @@ input:disabled {
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 1;
     }
+
     50% {
         opacity: 0.5;
     }
@@ -239,6 +296,7 @@ input:disabled {
 .line-clamp-2 {
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -246,6 +304,7 @@ input:disabled {
 .line-clamp-3 {
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -275,7 +334,8 @@ input:disabled {
 .badge-role {
     display: inline-flex;
     align-items: center;
-    font-size: 0.625rem; /* 10px */
+    font-size: 0.625rem;
+    /* 10px */
     padding: 0.125rem 0.5rem;
     border-radius: 9999px;
     font-weight: 700;
@@ -287,22 +347,28 @@ input:disabled {
 /* Badge Relator - Verde */
 .badge-role-relator,
 a[href*="portal-relator"] .badge-role {
-    background-color: #dcfce7; /* green-100 */
-    color: #15803d; /* green-700 */
+    background-color: #dcfce7;
+    /* green-100 */
+    color: #15803d;
+    /* green-700 */
 }
 
 /* Badge OTIC - Morado */
 .badge-role-otic,
 a[href*="portal-otic"] .badge-role {
-    background-color: #f3e8ff; /* purple-100 */
-    color: #7e22ce; /* purple-700 */
+    background-color: #f3e8ff;
+    /* purple-100 */
+    color: #7e22ce;
+    /* purple-700 */
 }
 
 /* Badge Cliente - Azul */
 .badge-role-cliente,
 a[href*="portal-cliente"] .badge-role {
-    background-color: #dbeafe; /* blue-100 */
-    color: #1d4ed8; /* blue-700 */
+    background-color: #dbeafe;
+    /* blue-100 */
+    color: #1d4ed8;
+    /* blue-700 */
 }
 
 /* Hover effects para links con badges */

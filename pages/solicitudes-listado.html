@@ -62,9 +62,19 @@
 </head>
 
 <body class="bg-background-light text-[#1e293b] antialiased overflow-hidden">
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" class="hidden fixed inset-0 bg-black/50 z-40 md:hidden"></div>
+
     <div class="flex h-screen w-full overflow-hidden">
         <!-- Sidebar -->
-        <aside class="flex w-64 flex-col bg-white border-r border-slate-200 flex-shrink-0 z-20 hidden lg:flex">
+        <aside id="sidebar"
+            class="fixed md:static inset-y-0 left-0 z-50 w-64 flex flex-col bg-white border-r border-slate-200 flex-shrink-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+            <!-- Close button for mobile -->
+            <div class="md:hidden flex justify-end p-4">
+                <button id="close-menu-button" class="text-gray-500 hover:text-gray-700">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
             <div class="flex h-full flex-col justify-between p-4">
                 <div class="flex flex-col gap-8">
                     <div class="flex items-center gap-3 px-2 py-2">
@@ -167,15 +177,15 @@
         <!-- Main Content -->
         <main class="flex-1 flex flex-col h-full relative overflow-hidden bg-[#f8fafc]">
             <!-- Mobile Header -->
-            <div class="lg:hidden flex items-center justify-between p-4 bg-white border-b border-slate-200">
+            <div class="md:hidden flex items-center justify-between p-4 bg-white border-b border-slate-200">
                 <div class="font-bold text-slate-900">OTEC Manager</div>
-                <button class="text-secondary" id="mobile-menu-toggle">
+                <button class="text-secondary" id="mobile-menu-button">
                     <span class="material-symbols-outlined">menu</span>
                 </button>
             </div>
 
             <!-- Content Area -->
-            <div class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6">
+            <div class="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8 space-y-6">
                 <!-- Page Header -->
                 <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
                     <div class="space-y-1">
@@ -185,11 +195,12 @@
                             <span class="material-symbols-outlined text-sm">chevron_right</span>
                             <span class="text-slate-900">Solicitudes</span>
                         </div>
-                        <h1 class="text-slate-900 text-2xl font-black tracking-tight">Listado de Solicitudes</h1>
+                        <h1 class="text-slate-900 text-xl md:text-2xl font-black tracking-tight">Listado de Solicitudes
+                        </h1>
                     </div>
-                    <div class="flex items-center gap-3">
+                    <div class="flex items-center gap-3 w-full md:w-auto">
                         <button id="btn-nueva-solicitud"
-                            class="flex items-center justify-center gap-2 h-10 px-4 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors font-bold text-[13px] shadow-sm">
+                            class="flex items-center justify-center gap-2 h-10 px-4 bg-primary hover:bg-primary/90 text-white rounded-lg transition-colors font-bold text-[13px] shadow-sm w-full md:w-auto">
                             <span class="material-symbols-outlined text-[18px]">add</span>
                             <span>Nueva Solicitud</span>
                         </button>
@@ -257,7 +268,7 @@
 
                 <!-- Table Card -->
                 <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden flex flex-col">
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto table-container">
                         <table class="w-full text-left border-collapse min-w-[1100px]">
                             <thead>
                                 <tr class="bg-slate-50 border-b border-slate-200">
@@ -289,13 +300,13 @@
 
                     <!-- Pagination -->
                     <div
-                        class="flex items-center justify-between px-6 py-4 border-t border-slate-200 bg-slate-50/50 mt-auto">
+                        class="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 md:px-6 py-4 border-t border-slate-200 bg-slate-50/50 mt-auto">
                         <div class="text-[13px] text-secondary" id="pagination-info">
                             Mostrando <span class="font-semibold text-slate-900" id="showing-start">0</span> a
                             <span class="font-semibold text-slate-900" id="showing-end">0</span> de
                             <span class="font-semibold text-slate-900" id="showing-total">0</span> resultados
                         </div>
-                        <div class="flex items-center gap-1.5">
+                        <div class="flex flex-wrap items-center gap-1.5">
                             <button id="btn-prev-page"
                                 class="flex items-center justify-center px-3 py-1.5 rounded-lg border border-slate-200 bg-white text-[13px] font-medium text-secondary hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                                 Anterior
@@ -344,6 +355,7 @@
     <script src="../assets/js/data/solicitudes-mock.js"></script>
     <script src="../assets/js/utils/helpers.js"></script>
     <script src="../assets/js/components/sidebar.js"></script>
+    <script src="../assets/js/components/mobile-menu.js"></script>
     <script src="../assets/js/components/tabla-solicitudes.js"></script>
     <script src="../assets/js/pages/solicitudes-listado.js"></script>
 </body>

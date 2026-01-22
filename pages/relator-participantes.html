@@ -59,6 +59,9 @@
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-[#111318] dark:text-white antialiased">
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" class="hidden fixed inset-0 bg-black/50 z-40 md:hidden"></div>
+
     <div class="flex h-screen overflow-hidden">
         <!--
             NOTA PARA PRODUCCIÓN (C#):
@@ -77,8 +80,15 @@
             usando @User.IsInRole("NombreRol")
         -->
         <!-- Sidebar -->
-        <aside
-            class="w-64 bg-white dark:bg-[#1a202c] border-r border-[#dbdee6] dark:border-gray-800 flex flex-col shrink-0">
+        <aside id="sidebar"
+            class="fixed md:static inset-y-0 left-0 z-50 w-64 bg-white dark:bg-[#1a202c] border-r border-[#dbdee6] dark:border-gray-800 flex flex-col shrink-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+            <!-- Close button for mobile -->
+            <div class="md:hidden flex justify-end p-4">
+                <button id="close-menu-button"
+                    class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
             <div class="p-6">
                 <div class="flex items-center gap-3">
                     <div class="bg-primary rounded-lg p-2 text-white">
@@ -181,7 +191,7 @@
         <main class="flex-1 flex flex-col overflow-y-auto pb-24">
             <!-- Header -->
             <header
-                class="bg-white dark:bg-[#111621] px-8 py-6 border-b border-[#dbdee6] dark:border-gray-800 sticky top-0 z-10">
+                class="bg-white dark:bg-[#111621] px-4 md:px-6 lg:px-8 py-4 md:py-6 border-b border-[#dbdee6] dark:border-gray-800 sticky top-0 z-10">
                 <!-- Breadcrumbs -->
                 <nav class="flex items-center gap-2 mb-4 text-sm text-gray-500 dark:text-gray-400">
                     <a class="hover:text-primary transition-colors" href="dashboard.html">Inicio</a>
@@ -191,11 +201,19 @@
                     <span class="text-[#111318] dark:text-white font-medium">Participantes</span>
                 </nav>
 
-                <div class="flex flex-wrap justify-between items-start gap-4">
-                    <div>
-                        <h2 class="text-[#111318] dark:text-white text-2xl font-black tracking-tight">Excel Avanzado
-                            para Finanzas Corporativas</h2>
-                        <p class="text-[#616e89] text-sm mt-1">Gestión de Aprobación Simplificada</p>
+                <div class="flex flex-col md:flex-row flex-wrap justify-between items-start md:items-center gap-4">
+                    <div class="flex items-center gap-4 w-full md:w-auto">
+                        <!-- Mobile menu button -->
+                        <button id="mobile-menu-button"
+                            class="md:hidden text-[#111318] dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-lg transition-colors">
+                            <span class="material-symbols-outlined text-[28px]">menu</span>
+                        </button>
+                        <div>
+                            <h2 class="text-[#111318] dark:text-white text-xl md:text-2xl font-black tracking-tight">
+                                Excel Avanzado
+                                para Finanzas Corporativas</h2>
+                            <p class="text-[#616e89] text-xs md:text-sm mt-1">Gestión de Aprobación Simplificada</p>
+                        </div>
                     </div>
                     <a href="portal-relator.html"
                         class="flex items-center gap-2 text-primary hover:text-primary/80 text-sm font-medium transition-all">
@@ -206,7 +224,7 @@
             </header>
 
             <!-- Main Content Area -->
-            <div class="p-8">
+            <div class="p-4 md:p-6 lg:p-8">
                 <!-- Info Banner -->
                 <div class="mb-6">
                     <div
@@ -250,99 +268,101 @@
                 <!-- Table -->
                 <div
                     class="overflow-hidden rounded-xl border border-[#dbdee6] dark:border-gray-700 bg-white dark:bg-gray-900 shadow-sm">
-                    <table class="w-full text-left border-collapse">
-                        <thead
-                            class="bg-[#f8fafc] dark:bg-gray-800/50 text-[#616e89] dark:text-gray-400 text-xs font-bold uppercase tracking-wider">
-                            <tr>
-                                <th class="px-6 py-4 w-16">#</th>
-                                <th class="px-6 py-4">RUT</th>
-                                <th class="px-6 py-4">NOMBRE</th>
-                                <th class="px-6 py-4 text-right">APROBADO</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-[#dbdee6] dark:divide-gray-700">
-                            <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
-                                <td class="px-6 py-4 text-sm font-medium">1</td>
-                                <td class="px-6 py-4 text-sm font-mono">15.432.981-0</td>
-                                <td class="px-6 py-4 text-sm font-semibold">Alvarez Retamal, Claudia</td>
-                                <td class="px-6 py-4 text-right">
-                                    <input checked
-                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
-                                        type="checkbox" />
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
-                                <td class="px-6 py-4 text-sm font-medium">2</td>
-                                <td class="px-6 py-4 text-sm font-mono">18.721.455-K</td>
-                                <td class="px-6 py-4 text-sm font-semibold">Cifuentes Garrido, Marcos</td>
-                                <td class="px-6 py-4 text-right">
-                                    <input checked
-                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
-                                        type="checkbox" />
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
-                                <td class="px-6 py-4 text-sm font-medium">3</td>
-                                <td class="px-6 py-4 text-sm font-mono">16.112.309-4</td>
-                                <td class="px-6 py-4 text-sm font-semibold">Mendoza Rojas, Javiera</td>
-                                <td class="px-6 py-4 text-right">
-                                    <input
-                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
-                                        type="checkbox" />
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
-                                <td class="px-6 py-4 text-sm font-medium">4</td>
-                                <td class="px-6 py-4 text-sm font-mono">17.291.883-2</td>
-                                <td class="px-6 py-4 text-sm font-semibold">Pérez Soto, Ignacio</td>
-                                <td class="px-6 py-4 text-right">
-                                    <input checked
-                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
-                                        type="checkbox" />
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
-                                <td class="px-6 py-4 text-sm font-medium">5</td>
-                                <td class="px-6 py-4 text-sm font-mono">19.554.120-1</td>
-                                <td class="px-6 py-4 text-sm font-semibold">Valenzuela Díaz, Andrea</td>
-                                <td class="px-6 py-4 text-right">
-                                    <input checked
-                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
-                                        type="checkbox" />
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
-                                <td class="px-6 py-4 text-sm font-medium">6</td>
-                                <td class="px-6 py-4 text-sm font-mono">14.876.234-5</td>
-                                <td class="px-6 py-4 text-sm font-semibold">González Muñoz, Roberto</td>
-                                <td class="px-6 py-4 text-right">
-                                    <input checked
-                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
-                                        type="checkbox" />
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
-                                <td class="px-6 py-4 text-sm font-medium">7</td>
-                                <td class="px-6 py-4 text-sm font-mono">20.123.456-7</td>
-                                <td class="px-6 py-4 text-sm font-semibold">Fernández López, María</td>
-                                <td class="px-6 py-4 text-right">
-                                    <input checked
-                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
-                                        type="checkbox" />
-                                </td>
-                            </tr>
-                            <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
-                                <td class="px-6 py-4 text-sm font-medium">8</td>
-                                <td class="px-6 py-4 text-sm font-mono">13.987.654-3</td>
-                                <td class="px-6 py-4 text-sm font-semibold">Ramírez Castro, Pablo</td>
-                                <td class="px-6 py-4 text-right">
-                                    <input checked
-                                        class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
-                                        type="checkbox" />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="overflow-x-auto table-container">
+                        <table class="w-full text-left border-collapse">
+                            <thead
+                                class="bg-[#f8fafc] dark:bg-gray-800/50 text-[#616e89] dark:text-gray-400 text-xs font-bold uppercase tracking-wider">
+                                <tr>
+                                    <th class="px-6 py-4 w-16">#</th>
+                                    <th class="px-6 py-4">RUT</th>
+                                    <th class="px-6 py-4">NOMBRE</th>
+                                    <th class="px-6 py-4 text-right">APROBADO</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-[#dbdee6] dark:divide-gray-700">
+                                <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium">1</td>
+                                    <td class="px-6 py-4 text-sm font-mono">15.432.981-0</td>
+                                    <td class="px-6 py-4 text-sm font-semibold">Alvarez Retamal, Claudia</td>
+                                    <td class="px-6 py-4 text-right">
+                                        <input checked
+                                            class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium">2</td>
+                                    <td class="px-6 py-4 text-sm font-mono">18.721.455-K</td>
+                                    <td class="px-6 py-4 text-sm font-semibold">Cifuentes Garrido, Marcos</td>
+                                    <td class="px-6 py-4 text-right">
+                                        <input checked
+                                            class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium">3</td>
+                                    <td class="px-6 py-4 text-sm font-mono">16.112.309-4</td>
+                                    <td class="px-6 py-4 text-sm font-semibold">Mendoza Rojas, Javiera</td>
+                                    <td class="px-6 py-4 text-right">
+                                        <input
+                                            class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium">4</td>
+                                    <td class="px-6 py-4 text-sm font-mono">17.291.883-2</td>
+                                    <td class="px-6 py-4 text-sm font-semibold">Pérez Soto, Ignacio</td>
+                                    <td class="px-6 py-4 text-right">
+                                        <input checked
+                                            class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium">5</td>
+                                    <td class="px-6 py-4 text-sm font-mono">19.554.120-1</td>
+                                    <td class="px-6 py-4 text-sm font-semibold">Valenzuela Díaz, Andrea</td>
+                                    <td class="px-6 py-4 text-right">
+                                        <input checked
+                                            class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium">6</td>
+                                    <td class="px-6 py-4 text-sm font-mono">14.876.234-5</td>
+                                    <td class="px-6 py-4 text-sm font-semibold">González Muñoz, Roberto</td>
+                                    <td class="px-6 py-4 text-right">
+                                        <input checked
+                                            class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium">7</td>
+                                    <td class="px-6 py-4 text-sm font-mono">20.123.456-7</td>
+                                    <td class="px-6 py-4 text-sm font-semibold">Fernández López, María</td>
+                                    <td class="px-6 py-4 text-right">
+                                        <input checked
+                                            class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-[#f8fafc] dark:hover:bg-gray-800/30 transition-colors">
+                                    <td class="px-6 py-4 text-sm font-medium">8</td>
+                                    <td class="px-6 py-4 text-sm font-mono">13.987.654-3</td>
+                                    <td class="px-6 py-4 text-sm font-semibold">Ramírez Castro, Pablo</td>
+                                    <td class="px-6 py-4 text-right">
+                                        <input checked
+                                            class="w-5 h-5 rounded text-success focus:ring-success border-[#dbdee6] dark:border-gray-700 dark:bg-gray-800 cursor-pointer"
+                                            type="checkbox" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </main>
@@ -350,7 +370,7 @@
 
     <!-- Fixed Footer Bar -->
     <div
-        class="fixed bottom-0 left-64 right-0 bg-white dark:bg-gray-900 border-t border-[#dbdee6] dark:border-gray-700 px-6 py-4 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-40">
+        class="fixed bottom-0 left-0 md:left-64 right-0 bg-white dark:bg-gray-900 border-t border-[#dbdee6] dark:border-gray-700 px-4 md:px-6 py-4 shadow-[0_-4px_10px_rgba(0,0,0,0.05)] z-40">
         <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-6 text-sm font-medium text-[#616e89] dark:text-gray-400">
                 <span class="flex items-center gap-1.5"><strong class="text-[#111318] dark:text-white">25</strong>
@@ -360,13 +380,13 @@
                 <span class="flex items-center gap-1.5"><span class="text-danger text-lg leading-none">✗</span> <strong
                         class="text-[#111318] dark:text-white">1</strong> reprobado</span>
             </div>
-            <div class="flex gap-4 w-full md:w-auto">
+            <div class="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
                 <button
-                    class="flex-1 md:flex-none h-10 px-6 border border-[#dbdee6] dark:border-gray-700 text-[#616e89] dark:text-gray-300 rounded-lg text-sm font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
+                    class="h-10 px-6 border border-[#dbdee6] dark:border-gray-700 text-[#616e89] dark:text-gray-300 rounded-lg text-sm font-bold hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
                     CANCELAR
                 </button>
                 <button
-                    class="flex-1 md:flex-none h-10 px-6 bg-success text-white rounded-lg text-sm font-bold hover:bg-success/90 transition-colors flex items-center justify-center gap-2 shadow-sm">
+                    class="h-10 px-6 bg-success text-white rounded-lg text-sm font-bold hover:bg-success/90 transition-colors flex items-center justify-center gap-2 shadow-sm">
                     <span class="material-symbols-outlined text-lg">save</span>
                     GUARDAR RESULTADOS
                 </button>
@@ -375,6 +395,7 @@
     </div>
 
     <script src="../assets/js/components/sidebar.js"></script>
+    <script src="../assets/js/components/mobile-menu.js"></script>
 </body>
 
 </html>

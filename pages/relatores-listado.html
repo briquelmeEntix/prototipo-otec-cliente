@@ -89,10 +89,20 @@
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-[#111318] dark:text-white antialiased">
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" class="hidden fixed inset-0 bg-black/50 z-40 md:hidden"></div>
+
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar -->
-        <aside
-            class="w-64 bg-white dark:bg-[#1a202c] border-r border-[#dbdee6] dark:border-gray-800 flex flex-col shrink-0">
+        <aside id="sidebar"
+            class="fixed md:static inset-y-0 left-0 z-50 w-64 bg-white dark:bg-[#1a202c] border-r border-[#dbdee6] dark:border-gray-800 flex flex-col shrink-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
+            <!-- Close button for mobile -->
+            <div class="md:hidden flex justify-end p-4">
+                <button id="close-menu-button"
+                    class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
             <div class="p-6">
                 <div class="flex items-center gap-3">
                     <div class="bg-primary rounded-lg p-2 text-white">
@@ -194,24 +204,33 @@
         <main class="flex-1 flex flex-col overflow-y-auto">
             <!-- Header -->
             <header
-                class="bg-white dark:bg-[#111621] px-8 py-6 border-b border-[#dbdee6] dark:border-gray-800 sticky top-0 z-10">
+                class="bg-white dark:bg-[#111621] px-4 md:px-6 lg:px-8 py-4 md:py-6 border-b border-[#dbdee6] dark:border-gray-800 sticky top-0 z-10">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div>
-                        <h2 class="text-[#111318] dark:text-white text-2xl font-black tracking-tight">Gestión de
-                            Relatores</h2>
-                        <p class="text-[#616e89] text-sm mt-1">Administración de profesionales y especialistas en
-                            formación.</p>
+                    <div class="flex items-center gap-4">
+                        <!-- Mobile menu button -->
+                        <button id="mobile-menu-button"
+                            class="md:hidden text-[#111318] dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 p-2 rounded-lg transition-colors">
+                            <span class="material-symbols-outlined text-[28px]">menu</span>
+                        </button>
+                        <div>
+                            <h2 class="text-[#111318] dark:text-white text-xl md:text-2xl font-black tracking-tight">
+                                Gestión de
+                                Relatores</h2>
+                            <p class="text-[#616e89] text-xs md:text-sm mt-1">Administración de profesionales y
+                                especialistas en
+                                formación.</p>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-3">
-                        <div class="relative">
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full md:w-auto">
+                        <div class="relative w-full sm:w-auto">
                             <span
                                 class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#616e89] text-[20px]">search</span>
                             <input id="searchInput"
-                                class="pl-10 pr-4 py-2 bg-gray-50 dark:bg-gray-800 border border-[#dbdee6] dark:border-gray-700 rounded-lg text-sm w-64 focus:ring-2 focus:ring-primary focus:border-primary transition-all"
+                                class="pl-10 pr-4 py-2 bg-gray-50 dark:bg-gray-800 border border-[#dbdee6] dark:border-gray-700 rounded-lg text-sm w-full sm:w-64 focus:ring-2 focus:ring-primary focus:border-primary transition-all"
                                 placeholder="Buscar por nombre o especialidad..." type="text" />
                         </div>
                         <button id="btnNuevoRelator"
-                            class="flex items-center gap-2 px-4 h-10 rounded-lg bg-primary text-white text-sm font-bold shadow-md hover:bg-primary/90 transition-all">
+                            class="flex items-center justify-center gap-2 px-4 h-10 rounded-lg bg-primary text-white text-sm font-bold shadow-md hover:bg-primary/90 transition-all w-full sm:w-auto">
                             <span class="material-symbols-outlined text-[20px]">add</span>
                             <span>Nuevo Relator</span>
                         </button>
@@ -238,10 +257,10 @@
             </header>
 
             <!-- Tabla -->
-            <div class="p-8">
+            <div class="p-4 md:p-6 lg:p-8">
                 <div
                     class="bg-white dark:bg-gray-900 border border-[#dbdee6] dark:border-gray-800 rounded-xl shadow-sm overflow-hidden">
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto table-container">
                         <table class="w-full text-left border-collapse table-zebra">
                             <thead
                                 class="bg-gray-50 dark:bg-gray-800/50 text-[#616e89] text-[11px] font-bold uppercase tracking-widest border-b border-[#dbdee6] dark:border-gray-700">
@@ -264,13 +283,13 @@
 
                     <!-- Pagination -->
                     <div
-                        class="px-6 py-4 bg-gray-50 dark:bg-gray-800/30 border-t border-[#dbdee6] dark:border-gray-800 flex items-center justify-between">
+                        class="px-4 md:px-6 py-4 bg-gray-50 dark:bg-gray-800/30 border-t border-[#dbdee6] dark:border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4">
                         <p class="text-xs text-[#616e89]">
                             Mostrando <span id="countShowing" class="font-bold text-[#111318] dark:text-white">0</span>
                             de
                             <span id="countTotal" class="font-bold text-[#111318] dark:text-white">0</span> relatores
                         </p>
-                        <div class="flex gap-2">
+                        <div class="flex flex-wrap gap-2 justify-center">
                             <button
                                 class="px-3 py-1.5 rounded bg-white dark:bg-gray-800 border border-[#dbdee6] dark:border-gray-700 text-xs font-medium hover:bg-gray-50 transition-colors">Anterior</button>
                             <button
@@ -282,7 +301,7 @@
                 </div>
 
                 <!-- Stats Cards -->
-                <div class="mt-8 grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="mt-6 md:mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                     <div
                         class="bg-white dark:bg-gray-900 p-5 rounded-xl border border-[#dbdee6] dark:border-gray-800 shadow-sm">
                         <div class="flex items-center gap-3">
@@ -452,6 +471,7 @@
         </div>
     </div>
 
+    <script src="../assets/js/components/mobile-menu.js"></script>
     <script>
         // Mock Data - Solo relatores con datos de detalle completos
         const mockRelatores = [
